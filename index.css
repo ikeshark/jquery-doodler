@@ -1,0 +1,93 @@
+#window > div {
+  background-color: white;
+  display: inline-block;
+}
+body {
+   background-color: black;
+   width: 100vw;
+   height: 100vh;
+   overflow: hidden;
+   display: flex;
+   justify-content: center;
+   margin: 0;
+   padding: 0;
+}
+#window {
+  width: 100vh;
+  height: 100vh;
+  font-size: 0;
+  border: 2px white solid;
+}
+button {
+  border-radius: 0;
+  background-color: white;
+
+  box-sizing: border-box;
+  border: 10px black solid;
+  font-size: 1.5em;
+}
+.selected {
+   background-color: #464646;
+   color: white;
+}
+#buttons {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   flex-wrap: wrap;
+   flex-grow: 1;
+}
+#titleBar {
+   width: 10%;
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: space;
+   flex-grow: 1;
+}
+h1 {
+   color: white;
+   text-align: center;
+   font-size: 1.8em;
+}
+#buttons > button {
+    height: 10%;
+    width: 100%;
+    flex-grow: 1;
+}
+#red {
+   background-color: red;
+}
+#orange {
+   background-color: orange;
+}
+#yellow {
+   background-color: yellow;
+}
+#green {
+   background-color: green;
+}
+#blue {
+   background-color: blue;
+}
+@media only screen and (orientation: portrait) {
+   body {
+     flex-direction: column;
+     align-items: center;
+     font-size: 1.5em;
+   }
+   #window {
+     width: 100vw;
+     height: 100vw;
+   }
+   #buttons {
+      flex-direction: row;
+      width: 100%;
+      height: 15%;
+   }
+   #buttons > button {
+     width: 10%;
+     height: 70%;
+     flex-grow: 1;
+   }
+}
