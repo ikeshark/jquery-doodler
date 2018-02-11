@@ -14,11 +14,44 @@ $(document).ready(function() {
       'width': dimensions + '%',
       'height': dimensions + '%'
     });
-    $(divSelector).on('mouseenter', function(){
-      $(this).css('background-color', 'green');
+    $('.selected').removeClass('selected');
+    $('#random').addClass('selected');
+    $(divSelector).on('mouseenter touchmove', function() {
+      let r = Math.floor(Math.random()*256);
+      let g = Math.floor(Math.random()*256);
+      let b = Math.floor(Math.random()*256);
+      let random = 'rgb('+r+', '+g+', '+b+')';
+      $(this).css('background-color', random);
     });
   };
   buildBoard(16);
+
+  $('#window').on('click', function() {
+    $(divSelector).off();
+    $('.selected').removeClass('selected');
+  });
+
+  function normalColor() {
+    let color = this.id;
+    $('.selected').removeClass('selected');
+    $(this).addClass('selected');
+    $(divSelector).on('mouseenter touchmove', function(){
+      $(this).css('background-color', color);
+    });
+  }
+
+  function randomColor() {
+    $('.selected').removeClass('selected');
+    $(this).addClass('selected');
+    $(divSelector).on('mouseenter touchmove', function() {
+      let r = Math.floor(Math.random()*256);
+      let g = Math.floor(Math.random()*256);
+      let b = Math.floor(Math.random()*256);
+      let random = 'rgb('+r+', '+g+', '+b+')';
+      $(this).css('background-color', random);
+    });
+  }
+
 
   $('#reset').on('click', function(){
     var dimension = prompt('please enter a dimension, 2 to 100', '16');
@@ -31,58 +64,14 @@ $(document).ready(function() {
     }
   });
 
-  $('#red').on('click', function(){
-    $(divSelector).on('mouseenter', function(){
-      $(this).css('background-color', 'red');
-    });
-    $('#eraser').removeClass('selected');
-  });
+  $('#red').on('click', normalColor);
+  $('#orange').on('click', normalColor);
+  $('#yellow').on('click', normalColor);
+  $('#green').on('click', normalColor);
+  $('#blue').on('click', normalColor);
+  $('#white').on('click', normalColor);
 
-  $('#orange').on('click', function(){
-    $(divSelector).on('mouseenter', function(){
-      $(this).css('background-color', 'orange');
-    });
-    $('#eraser').removeClass('selected');
-  });
-
-  $('#yellow').on('click', function(){
-    $(divSelector).on('mouseenter', function(){
-      $(this).css('background-color', 'yellow');
-    });
-    $('#eraser').removeClass('selected');
-  });
-
-  $('#green').on('click', function(){
-    $(divSelector).on('mouseenter', function(){
-      $(this).css('background-color', 'green');
-    });
-    $('#eraser').removeClass('selected');
-  });
-
-  $('#blue').on('click', function(){
-    $(divSelector).on('mouseenter', function(){
-      $(this).css('background-color', 'blue');
-    });
-    $('#eraser').removeClass('selected');
-  });
-
-  $('#eraser').on('click', function(){
-    $(this).addClass('selected');
-    $(divSelector).on('mouseenter', function(){
-      $(this).css('background-color', 'white');
-    });
-  });
-
-  $('#random').on('click', function(){
-    $(divSelector).on('mouseenter', function(){
-      let r = Math.floor(Math.random()*256);
-      let g = Math.floor(Math.random()*256);
-      let b = Math.floor(Math.random()*256);
-      let random = 'rgb('+r+', '+g+', '+b+')';
-      $(this).css('background-color', random);
-    });
-    $('#eraser').removeClass('selected');
-  });
+  $('#random').on('click', randomColor);
 
 });
 
