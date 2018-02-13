@@ -3,6 +3,22 @@ $(document).ready(function() {
   const SQUARE = '<div></div>';
   const divSelector = '#window > div';
 
+  // test for mobile courtesy of open tech guides
+  function isMobileDevice() {
+    testExp = new RegExp('Android|webOS|iPhone|iPad|' +
+      		       'BlackBerry|Windows Phone|'  +
+      		       'Opera Mini|IEMobile|Mobile' ,
+      		      'i');
+    if (testExp.test(navigator.userAgent)) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+  if (isMobileDevice()) {
+    document.getElementById("modalBG").classList.remove("hidden");
+    document.getElementById("modalError").classList.remove("hidden");
+  }
   function buildBoard(dimension){
     $(divSelector).remove();
     let squares = dimension ** 2;
