@@ -19,7 +19,7 @@ $(document).ready(function() {
     document.getElementById("modalBG").classList.remove("hidden");
     document.getElementById("modalError").classList.remove("hidden");
   }
-  function buildBoard(dimension){
+  function buildBoard(dimension) {
     $(divSelector).remove();
     let squares = dimension ** 2;
     for (i = 0; i < squares; i++){
@@ -32,7 +32,7 @@ $(document).ready(function() {
     });
     $('.selected').removeClass('selected');
     $('#random').addClass('selected');
-    $(divSelector).on('mouseenter touchmove', function() {
+    $(divSelector).on('mouseenter', function() {
       let r = Math.floor(Math.random()*256);
       let g = Math.floor(Math.random()*256);
       let b = Math.floor(Math.random()*256);
@@ -51,7 +51,7 @@ $(document).ready(function() {
     let color = this.id;
     $('.selected').removeClass('selected');
     $(this).addClass('selected');
-    $(divSelector).on('mouseenter touchmove', function(){
+    $(divSelector).on('mouseenter', function(){
       $(this).css('background-color', color);
     });
   }
@@ -59,7 +59,7 @@ $(document).ready(function() {
   function randomColor() {
     $('.selected').removeClass('selected');
     $(this).addClass('selected');
-    $(divSelector).on('mouseenter touchmove', function() {
+    $(divSelector).on('mouseenter', function() {
       let r = Math.floor(Math.random()*256);
       let g = Math.floor(Math.random()*256);
       let b = Math.floor(Math.random()*256);
@@ -90,8 +90,3 @@ $(document).ready(function() {
   $('#random').on('click', randomColor);
 
 });
-
-
-// right click (or space or even left click) to toggle drawing on and off
-// make 100 the max dimension input
-// allow for touch input
