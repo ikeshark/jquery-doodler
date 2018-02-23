@@ -17,15 +17,34 @@ button {
   border-radius: 0;
   background-color: white;
   font-family: inherit;
-  border: 10px black solid;
-  font-size: 1.5em;
+  border: 10px grey solid;
+  font-size: 1.3em;
+}
+input {
+  position: absolute;
+  visibility: hidden;
+}
+.flex-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 /*          */
 /* Elements */
 /*          */
 
+.resolutionRadio {
+  padding: 0.5vw;
+  margin: 0.5vw;
+  background: white;
+  width: 50%;
+  color: black;
+  font-size: 2em;
+}
 #titleBar {
+  box-sizing: border-box;
+   padding: 1%;
    color: white;
    width: 288px;
    display: flex;
@@ -33,8 +52,9 @@ button {
    justify-content: space-around;
    text-align: center;
 }
-#reset {
-  padding: 3%;
+#reset, #resolution {
+  padding: 5%;
+  margin: 5%;
 }
 
 #window {
@@ -59,6 +79,9 @@ button {
     height: 10%;
     width: 100%;
     flex-grow: 1;
+}
+#pBoolCont {
+  color: yellow;
 }
 #red {
    background-color: red;
@@ -91,7 +114,7 @@ button {
   height: 100vh;
   position: absolute;
 }
-#modalError {
+#modalError, #modalLoad {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -110,7 +133,11 @@ button {
 /* STATE */
 /*       */
 
-.selected {
+input[type=radio]:checked + label {
+  background: #464646 !important;
+  color: white !important;
+}
+.selected, .resSelect {
    background: #464646 !important;
    color: white !important;
 }
@@ -126,7 +153,29 @@ button {
   #titleBar {
     width: 100%;
     height: 15%;
-    flex-direction: row;
+    flex-direction: column;
+    flex-wrap: wrap;
+  }
+  #pBoolCont {
+    display: none;
+  }
+  #reset, #resolution {
+    height: 50%;
+    width: 20%;
+    font-size: 1em;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  .resolutionRadio {
+    width: 33%;
+    height: 3vh;
+  }
+  #resCont {
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 25%;
+    height: 100%;
   }
    body {
      flex-direction: column;

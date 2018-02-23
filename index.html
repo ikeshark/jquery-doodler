@@ -10,9 +10,22 @@
   </head>
   <body>
     <div id="titleBar">
-       <h1>Pixelated Doodler</h1>
-       <p>Hover to paint,<br /> click to stop</p>
-       <button id="reset">Reset/<br />Resolution</button>
+       <h1></h1>
+       <p class="l-padding">Hover to paint, press 'x' to stop
+         <br /><br />Up the resolution for symmetry</p>
+       <p id="pBoolCont" class="l-padding">Paint: <span id="paintBool"></span></p>
+       <button id="reset">Reset</button>
+       <button id="resolution" class="resSelect">Resolution</button>
+       <div id="resCont" class="flex-col">
+         <input id="res8" name="res" type="radio" value="8">
+         <label for="res8" class="resolutionRadio">8</label>
+         <input id="res16" name="res" type="radio" value="16" checked="checked">
+         <label for="res16" class="resolutionRadio">16</label>
+         <input id="res32" name="res" type="radio" value="32">
+         <label for="res32" class="resolutionRadio">32</label>
+         <input id="res64" name="res" type="radio" value="64">
+         <label for="res64" class="resolutionRadio">64</label>
+       </div>
     </div>
     <main id="window"></main>
     <div id="buttons">
@@ -27,6 +40,9 @@
     <div id="modalBG" class="hidden">
       <div id="modalError" class="hidden">
         Apologies, Pixelated Doodler does not support mobile
+      </div>
+      <div id="modalLoad" class="hidden">
+        Please hold.
       </div>
     </div>
 
