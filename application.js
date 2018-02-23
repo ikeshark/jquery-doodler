@@ -1,6 +1,5 @@
 $(document).ready(function() {
 
-  const SQUARE = '<div></div>';
   const divSelector = '#window > div';
   let resolution = 16;
   let paint = 'random';
@@ -18,7 +17,6 @@ $(document).ready(function() {
     for (let i = 0; i < txt.length; i++) {
       let span = $('<span></span>');
       span.text(txt[i]);
-      console.log(colors[i]);
       span.css('color', colors[i]);
       $('h1').append(span);
     }
@@ -49,8 +47,9 @@ $(document).ready(function() {
     let newSize = resolution ** 2;
 
     if (oldSize === 0) {
-      for (let i = 0; i < newSize; i++){
-        $('#window').append(SQUARE);
+      let square = '<div></div>';
+      for (let i = 0; i < newSize; i++) {
+        $('#window').append(square);
       }
     } else if (newSize < oldSize) {
       // remember old colors
@@ -60,11 +59,12 @@ $(document).ready(function() {
       }
       // clear board
       $(divSelector).remove();
-      console.log('trigger');
       // build new board with old colors
       for (let i = 0; i < newSize; i++) {
-        $('#window').append(SQUARE);
-        $(divSelector).eq(i).css('backgroundColor', colors[i]);
+        let square = $('<div></div>');
+        square.css('backgroundColor', colors[i]);
+        $('#window').append(square);
+        // $(divSelector).eq(i).css('backgroundColor', colors[i]);
       }
     }
     else {
@@ -85,13 +85,16 @@ $(document).ready(function() {
         for (let i = 0; i < oldRes; i++) {
           let reverseColor = colors[i].slice().reverse();
           for (let j = 0; j < oldRes; j++) {
-            $('#window').append(SQUARE);
-            $(divSelector).eq(count).css('backgroundColor', colors[i][j]);
+            let square = $('<div></div>');
+            square.css('backgroundColor', colors[i][j]);
+            $('#window').append(square);
+            // $(divSelector).eq(count).css('backgroundColor', colors[i][j]);
             count++;
           }
           for (let j = 0; j < oldRes; j++) {
-            $('#window').append(SQUARE);
-            $(divSelector).eq(count).css('backgroundColor', reverseColor[j]);
+            let square = $('<div></div>');
+            square.css('backgroundColor', reverseColor[j]);
+            $('#window').append(square);
             count++;
           }
         }
@@ -102,8 +105,10 @@ $(document).ready(function() {
         });
         bottomColors.reverse();
         for (let i = 0; i < bottomColors.length; i++) {
-          $('#window').append(SQUARE);
-          $(divSelector).eq(oldSize * 2 + i).css('backgroundColor', bottomColors[i]);
+          let square = $('<div></div>');
+          square.css('backgroundColor', bottomColors[i]);
+          $('#window').append(square);
+          // $(divSelector).eq(oldSize * 2 + i).css('backgroundColor', bottomColors[i]);
         }
       }
       if (oldRes * 2 === resolution) {
@@ -164,14 +169,16 @@ $(document).ready(function() {
   }
 
   function changeRes() {
-    let elem = $(this)[0];
-    resolution = Number(elem.value);
-    if (resolution === 64 || resolution === 32) {
-      $('#modalBG').removeClass('hidden');
-      $('#modalLoad').removeClass('hidden');
-      setTimeout(buildBoard, 10);
-    } else {
-      buildBoard();
+    let newRes = Number(this.value);
+    if (resolution !== newRes) {
+      resolution = newRes;
+      if (resolution === 64 || resolution === 32) {
+        $('#modalBG').removeClass('hidden');
+        $('#modalLoad').removeClass('hidden');
+        setTimeout(buildBoard, 10);
+      } else {
+        buildBoard();
+      }
     }
   }
 
@@ -211,10 +218,7 @@ $(document).ready(function() {
     $(this).next().toggleClass('hidden');
   });
 
-  $('[name="res"]').each(function() {
-    $(this).on('click', changeRes);
-  });
-
+  $('[name="res"]').on('click', changeRes);
   // build the board
   buildBoard();
 });
