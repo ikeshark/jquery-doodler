@@ -113,6 +113,7 @@ input {
   width: 100vw;
   height: 100vh;
   position: absolute;
+  z-index: 9998;
 }
 #modalError, #modalLoad {
   display: flex;
@@ -150,41 +151,52 @@ input[type=radio]:checked + label {
 /*               */
 
 @media only screen and (max-width: 1000px) {
-  #titleBar {
-    width: 100%;
-    height: 15%;
-    flex-direction: column;
-    flex-wrap: wrap;
-  }
-  #pBoolCont {
-    display: none;
-  }
-  #reset, #resolution {
-    height: 50%;
-    width: 20%;
-    font-size: 1em;
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  .resolutionRadio {
-    width: 33%;
-    height: 3vh;
-  }
-  #resCont {
-    flex-wrap: wrap;
-    justify-content: center;
-    width: 25%;
-    height: 100%;
-  }
    body {
      flex-direction: column;
      align-items: center;
    }
-   #window {
+   #titleBar {
      width: 100%;
-     height: 70%;
+     height: 15%;
+     flex-direction: column;
+     flex-wrap: wrap;
    }
+   h1 {
+     width: 29%;
+   }
+   #pBoolCont {
+     display: none;
+   }
+   p {
+     width: 29%;
+     font-size: 0.8em;
+   }
+   #reset, #resolution {
+     height: 50%;
+     width: 19%;
+     font-size: 0.9em;
+     margin: 0;
+     padding: 0;
+     box-sizing: border-box;
+   }
+   #resCont {
+     flex-wrap: wrap;
+     justify-content: center;
+     width: 18%;
+     height: 100%;
+   }
+   .resolutionRadio {
+     width: 33%;
+     height: 3vh;
+   }
+
+   #window {
+     width: 100vw;
+     max-width: 750px;
+     height: 100vw;
+     max-height: 750px;
+   }
+
    #buttons {
       flex-direction: row;
       max-width: 100vw;
