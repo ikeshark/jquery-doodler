@@ -1,14 +1,21 @@
 $(document).ready(function() {
 
+  // all paintable divs
   const divSelector = '#window > div';
   let resolution = 16;
+  // paint holds the current color, default is random
   let paint = 'random';
   let paintBool = true;
 
   function displayPaintBool() {
     let text = paintBool ? 'on' : 'off';
+    let color = paintBool ? 'yellow' : 'white';
     $('#paintBool').text(text);
+    $('#paintBool').css('color', color);
   }
+
+  // turning off auto-complete, a problem on Firefox
+  $('input').attr('autocomplete', 'off');
 
   function fancyHeadline() {
     let txt = 'Pixelated';
@@ -64,7 +71,6 @@ $(document).ready(function() {
         let square = $('<div></div>');
         square.css('backgroundColor', colors[i]);
         $('#window').append(square);
-        // $(divSelector).eq(i).css('backgroundColor', colors[i]);
       }
     }
     else {
@@ -88,7 +94,6 @@ $(document).ready(function() {
             let square = $('<div></div>');
             square.css('backgroundColor', colors[i][j]);
             $('#window').append(square);
-            // $(divSelector).eq(count).css('backgroundColor', colors[i][j]);
             count++;
           }
           for (let j = 0; j < oldRes; j++) {
@@ -108,7 +113,6 @@ $(document).ready(function() {
           let square = $('<div></div>');
           square.css('backgroundColor', bottomColors[i]);
           $('#window').append(square);
-          // $(divSelector).eq(oldSize * 2 + i).css('backgroundColor', bottomColors[i]);
         }
       }
       if (oldRes * 2 === resolution) {
@@ -120,47 +124,54 @@ $(document).ready(function() {
     }
     // resizing
     let dimensions = 100 / resolution;
+    let radius = $('#radius').val();
+    radius += '%';
     $(divSelector).css({
       'width': dimensions + '%',
-      'height': dimensions + '%'
+      'height': dimensions + '%',
+      'border-radius': radius
     });
     // removing loading screen
     $('#modalBG').addClass('hidden');
     $('#modalLoad').addClass('hidden');
-    // restoring paint
-    if (paint === 'random') {
-      randomColor();
-    } else if (paint) {
-      let color = paint;
-      normalColor(color);
+    // restoring paint if it was on
+    if (paintBool) {
+      if (paint === 'random') {
+        randomColor();
+      } else if (paint) {
+        let color = paint;
+        normalColor(color);
+      }
+    } else {
+      $(divSelector).css('cursor', 'default');
     }
   }
 
   function normalColor(color) {
     paint = color;
-    paintBool = true;
-    displayPaintBool();
     let selector = "#" + color;
     $('.selected').removeClass('selected');
     $(selector).addClass('selected');
-    $(divSelector).on('mouseenter', function(){
-      $(this).css('background-color', color);
-    });
+    if (paintBool) {
+      $(divSelector).on('mouseenter', function(){
+        $(this).css('background-color', color);
+      });
+    }
   }
 
   function randomColor() {
     paint = 'random';
-    paintBool = true;
-    displayPaintBool();
     $('.selected').removeClass('selected');
     $('#random').addClass('selected');
-    $(divSelector).on('mouseenter', function() {
-      let r = Math.floor(Math.random()*256);
-      let g = Math.floor(Math.random()*256);
-      let b = Math.floor(Math.random()*256);
-      let random = 'rgb('+r+', '+g+', '+b+')';
-      $(this).css('background-color', random);
-    });
+    if (paintBool) {
+      $(divSelector).on('mouseenter', function() {
+        let r = Math.floor(Math.random()*256);
+        let g = Math.floor(Math.random()*256);
+        let b = Math.floor(Math.random()*256);
+        let random = 'rgb('+r+', '+g+', '+b+')';
+        $(this).css('background-color', random);
+      });
+    }
   }
 
   function eraseBoard() {
@@ -188,7 +199,11 @@ $(document).ready(function() {
         paintBool = false;
         displayPaintBool();
         $(divSelector).off('mouseenter');
+        $(divSelector).css('cursor', 'default');
       } else {
+        $(divSelector).css('cursor', 'pointer');
+        paintBool = true;
+        displayPaintBool();
         if (paint === 'random') {
           randomColor();
         } else {
@@ -200,14 +215,24 @@ $(document).ready(function() {
   }
   // Event Listeners
 
-  // toggle works on random but not normal colors.
   $(document).keyup(togglePaint);
 
-  $('#red').on('click', () => normalColor('red'));
-  $('#orange').on('click', () => normalColor('orange'));
-  $('#yellow').on('click', () => normalColor('yellow'));
-  $('#green').on('click', () => normalColor('green'));
-  $('#blue').on('click', () => normalColor('blue'));
+  // normal colors (not eraser)
+  $('.colors').each(function()  {
+    let color = this.id;
+    $(this).css({
+      'background-color': color,
+      'border-color': color
+    });
+    $(this).on('click', () => normalColor(color));
+  });
+  // radius slider
+  $('#radius').on('change', function() {
+    value = $(this).val();
+    value += '%';
+    $(divSelector).css('border-radius', value);
+  });
+  // eraser and random
   $('#white').on('click', () => normalColor('white'));
   $('#random').on('click', randomColor);
 
@@ -221,4 +246,5 @@ $(document).ready(function() {
   $('[name="res"]').on('click', changeRes);
   // build the board
   buildBoard();
+  displayPaintBool();
 });
