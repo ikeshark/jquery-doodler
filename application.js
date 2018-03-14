@@ -6,6 +6,8 @@ $(document).ready(function() {
   // paint holds the current color, default is random
   let paint = 'random';
   let paintBool = true;
+  let opacity = 1;
+  let bRadius = 0;
 
   function displayPaintBool() {
     let text = paintBool ? 'on' : 'off';
@@ -129,7 +131,6 @@ $(document).ready(function() {
     $(divSelector).css({
       'width': dimensions + '%',
       'height': dimensions + '%',
-      'border-radius': radius
     });
     // removing loading screen
     $('#modalBG').addClass('hidden');
@@ -151,10 +152,13 @@ $(document).ready(function() {
     paint = color;
     let selector = "#" + color;
     $('.selected').removeClass('selected');
+    let rgb = $(selector).css("backgroundColor");
     $(selector).addClass('selected');
     if (paintBool) {
-      $(divSelector).on('mouseenter', function(){
-        $(this).css('background-color', color);
+      $(divSelector).on('mouseenter', function() {
+        let a = `, ${opacity})`;
+        let rgba = rgb.replace('rgb', 'rgba').replace(')', a);
+        $(this).css('background-color', rgba);
       });
     }
   }
@@ -168,7 +172,8 @@ $(document).ready(function() {
         let r = Math.floor(Math.random()*256);
         let g = Math.floor(Math.random()*256);
         let b = Math.floor(Math.random()*256);
-        let random = 'rgb('+r+', '+g+', '+b+')';
+        let a = opacity;
+        let random = `rgba(${r}, ${g}, ${b}, ${a})`;
         $(this).css('background-color', random);
       });
     }
@@ -226,15 +231,17 @@ $(document).ready(function() {
     });
     $(this).on('click', () => normalColor(color));
   });
-  // radius slider
-  $('#radius').on('change', function() {
-    value = $(this).val();
-    value += '%';
-    $(divSelector).css('border-radius', value);
-  });
   // eraser and random
   $('#white').on('click', () => normalColor('white'));
   $('#random').on('click', randomColor);
+
+  // opacity slider
+  $('#opacity').on('change', function() {
+    value = $(this).val();
+    opacity = value / 100;
+    // value += '%';
+    // $(divSelector).css('border-radius', value);
+  });
 
   $('#reset').on('click', eraseBoard);
 

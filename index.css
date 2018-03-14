@@ -65,27 +65,29 @@ input[type=radio] {
 .demo {
   width: 2vh;
   height: 2vh;
-  background-color: yellow;
+  background-color: white;
   margin: 1vw;
 }
-.circle {
-  border-radius: 100%;
+.dark {
+  /* border-radius: 100%; */
+  background-color: black;
+  border: 1px white solid;
 }
-#radius {
+#opacity {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
   height: 12px;
-  width: 130px;
+  width: 120px;
   background: grey;
 }
-#radius::-moz-range-thumb {
+#opacity::-moz-range-thumb {
   width: 25px;
   height: 25px;
   border-radius: 0;
   background: white;
 }
-#radius::-webkit-slider-thumb {
+#opacity::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
   width: 25px;
@@ -122,6 +124,9 @@ input[type=radio] {
 #random {
   background-image: url(random.png);
   background-size: cover;
+}
+.l-full-w {
+  width: 100%;
 }
 
 #modalBG {
@@ -195,7 +200,7 @@ input[type=radio]:checked + label {
    }
    #reset, #resolution {
      height: 50%;
-     width: 19%;
+     width: 18%;
      font-size: 0.8em;
      margin: 0;
      padding: 0;
@@ -209,11 +214,11 @@ input[type=radio]:checked + label {
    }
    .resolutionRadio {
      font-size: 1.5em;
-     flex-grow: 1;
+     /* flex-grow: 1; */
      display: flex;
      justify-content: center;
      align-items: center;
-     height: 46%;
+     height: 40%;
      margin: 0;
      padding: 0;
      border: 1px black solid;
